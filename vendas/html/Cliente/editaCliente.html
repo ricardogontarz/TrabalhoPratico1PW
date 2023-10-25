@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Edição em PHP</title>
+</head>
+<body>
+    <h1>Formulário de Edição em PHP</h1>
+    <form id="editForm" method="post" action="../../php/cliente/crud.php">
+        <input type="hidden" name="action" value="edit_client">
+        <input type="hidden" name="cliente_id" id="cliente_id">
+        <label for="nome">Nome do Cliente:</label>
+        <input type="text" name="nome" id="nome" required>
+        <label for="descricao">endereco do Cliente:</label>
+        <input type="text" name="endereco" id="endereco" required>
+        <label for="preco">telefone do cliente:</label>
+        <input type="tel" id="telefone" name="telefone" required>
+        <label for="quantidade_estoque">email do cliente:</label>
+        <input type="text" name="email" id="email" required>
+        <input type="submit" name="editar" value="Editar Cliente">
+    </form>
+
+    <script>
+        // Função para buscar os detalhes do cliente e preencher o formulário
+        function buscarDetalhesDoCliente() {
+            const cliente_id = obterParametroDaURL('id');
+            console.log(cliente_id)
+    
+            // Substitua 'buscarDetalhesCliente.php' pelo arquivo PHP que busca os detalhes
+            fetch(`../../php/cliente/buscarDetalhesCliente.php?id=${cliente_id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Preencha os campos do formulário com os detalhes obtidos
+                    document.getElementById('cliente_id').value = data.cliente_id;
+                    document.getElementById('nome').value = data.nome;
+                    document.getElementById('endereco').value = data.endereco;
+                    document.getElementById('telefone').value = data.telefone;
+                    document.getElementById('email').value = data.email;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar detalhes do cliente:', error);
+                });
+        }
+    
+        // Função para recuperar parâmetros da URL
+        function obterParametroDaURL(parametro) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(parametro);
+        }
+    
+        // Chame a função para buscar detalhes do cliente ao carregar a página
+        buscarDetalhesDoCliente();
+    </script>
+</body>
+</html>

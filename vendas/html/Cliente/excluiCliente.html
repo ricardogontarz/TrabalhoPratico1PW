@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de exclusão em PHP</title>
+</head>
+<body>
+    
+    <h1>Formulário de exclusão em PHP</h1>
+    <form method="post" action="../../php/cliente/crud.php">
+        <input type="hidden" name="action" value="delete_client">
+        <input type="hidden" name="cliente_id" id="cliente_id" value="cliente_id">
+        <label for="nome">Tem certeza que quer excluir este cliente?</label>
+        <a href="/php/cliente/index.php" class="button">Voltar</a>
+        <input type="submit" name="excluir" value="Excluir Cliente">
+    </form>
+    <script>
+        // Função para recuperar parâmetros da URL
+        function obterParametroDaURL(parametro) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(parametro);
+        }
+
+        // Recuperar o ID da URL e definir o valor do campo de formulário
+        const idProduto = obterParametroDaURL('id');
+        document.getElementById('cliente_id').value = idProduto;
+    </script>
+</body>
+</html>

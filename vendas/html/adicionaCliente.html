@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de adiçao em PHP</title>
+</head>
+<body>
+    <h1>Formulário de adicao em PHP</h1>
+    <form method="post" action="../php/cliente/crud.php">
+        <input type="hidden" name="action" value="add_client">
+        <label for="nome">nome do cliente a adicionar:</label>
+        <input type="text" name="nome" id="nome" required>
+        <label for="nome">endereco do cliente a adicionar:</label>
+        <input type="text" name="endereco" id="endereco" required>
+        <label for="nome">telefone do cliente a adicionar:</label>
+        <input type="tel" id="telefone" name="telefone" required>
+        <label for="nome">Email do cliente a adicionar:</label>
+        <input type="email" name="email" id="email" required>
+        <input type="submit" name="adicionar" value="Adicionar Cliente">
+    </form>
+</body>
+</html>

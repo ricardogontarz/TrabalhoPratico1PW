@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Edição em PHP</title>
+</head>
+<body>
+    <h1>Formulário de Edição em PHP</h1>
+    <form id="editForm" method="post" action="../php/produto/crud.php">
+        <input type="hidden" name="action" value="edit_product">
+        <input type="hidden" name="produto_id" id="produto_id">
+        <label for="nome">Nome do Produto:</label>
+        <input type="text" name="nome" id="nome" required>
+        <label for="descricao">Descrição do Produto:</label>
+        <input type="text" name="descricao" id="descricao" required>
+        <label for="preco">Preço do Produto:</label>
+        <input type="number" id="preco" name="preco" step="any" min="0.01" required>
+        <label for="quantidade_estoque">Quantidade do Produto:</label>
+        <input type="number" name="quantidade_estoque" id="quantidade_estoque" required>
+        <input type="submit" name="editar" value="Editar Produto">
+    </form>
+
+    <script>
+        // Função para buscar os detalhes do produto e preencher o formulário
+        function buscarDetalhesDoProduto() {
+            const produto_id = obterParametroDaURL('id');
+
+            // Substitua 'buscar_detalhes_produto.php' pelo arquivo PHP que busca os detalhes
+            fetch(`../php/produto/buscarDetalhesProduto.php?id=${produto_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Preencha os campos do formulário com os detalhes obtidos
+                    document.getElementById('produto_id').value = data.produto_id;
+                    document.getElementById('nome').value = data.nome;
+                    document.getElementById('descricao').value = data.descricao;
+                    document.getElementById('preco').value = data.preco;
+                    document.getElementById('quantidade_estoque').value = data.quantidade_estoque;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar detalhes do produto:', error);
+                });
+        }
+
+        // Função para recuperar parâmetros da URL
+        function obterParametroDaURL(parametro) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(parametro);
+        }
+
+        // Chame a função para buscar detalhes do produto ao carregar a página
+        buscarDetalhesDoProduto();
+    </script>
+</body>
+</html>
